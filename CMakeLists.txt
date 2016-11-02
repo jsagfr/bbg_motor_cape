@@ -5,4 +5,6 @@ include_directories(include)
 
 file(GLOB SOURCES "src/*.cpp")
 
+add_compile_options(-std=c++11)
+add_compile_options(-Wall)
 add_executable(bbg_motor_cape ${SOURCES})
