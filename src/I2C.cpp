@@ -13,16 +13,27 @@ I2C::I2C(string path)
   
 void I2C::write(uint8_t reg, uint8_t data)
 {
-  cout << "reg: " << hex << static_cast<int>(reg) << " data: " << hex << static_cast<int>(data) << endl;
+  // cout << showbase // show the 0x prefix
+  //      << internal // fill between the prefix and the number
+  //      << setfill('0'); // fill with 0s
+  cout << internal // fill between the prefix and the number
+       << setfill('0'); // fill with 0s
+  cout << "reg: " << hex << setw(2) << static_cast<int>(reg) << " byte: " << hex << setw(2) << static_cast<int>(data) << endl;
 }
 
 void I2C::write(uint8_t reg, uint16_t data)
 {
-  cout << "reg: " << hex << static_cast<int>(reg) << " data: " << hex << static_cast<int>(data) << endl;
+  cout << internal // fill between the prefix and the number
+       << setfill('0'); // fill with 0s
+  // cout << "reg: " << hex << setw(4) << static_cast<int>(reg) << " halfword: " << hex << setw(8) << static_cast<int>(data) << endl;
+  cout << "reg: " << hex << setw(2) << static_cast<int>(reg) << " halfword: " << hex << setw(4) << data << endl;
 }
 
 void I2C::write(uint8_t reg, uint32_t data)
 {
-  cout << "reg: " << hex << static_cast<int>(reg) << " data: " << hex << static_cast<int>(data) << endl;
+  cout << internal // fill between the prefix and the number
+       << setfill('0'); // fill with 0s
+  // cout << "reg: " << hex << setw(4) << static_cast<int>(reg) << " word: " << hex << setw(16) << static_cast<int>(data) << endl;
+  cout << "reg: " << hex << setw(2) << static_cast<int>(reg) << " word: " << hex << setw(8) << data << endl;
 }
 

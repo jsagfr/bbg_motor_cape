@@ -5,10 +5,10 @@
 #include <cstdint>
 
 DCMotor::DCMotor(I2C* i2cDevice, uint8_t TB_MODE, uint8_t TB_DIR, uint8_t TB_DUTY) :
-  i2cDevice(i2cDevice),
-  TB_MODE(TB_MODE),
-  TB_DIR(TB_DIR),
-  TB_DUTY(TB_DUTY)
+  _i2cDevice(i2cDevice),
+  _TB_MODE(TB_MODE),
+  _TB_DIR(TB_DIR),
+  _TB_DUTY(TB_DUTY)
 {}
 
 
@@ -16,20 +16,20 @@ void DCMotor::power(float power)
 {
   power = fmin( 1.0, power);
   power = fmax(-1.0, power);
-  uint16_t pwmDutty = static_cast<uint16_t>(round(power * 1000.0));
+  uint32_t pwmDutty = static_cast<uint32_t>(round(power * 1000.0));
 
   if (pwmDutty == 0) {
     this->stop();
   } else {
     uint8_t direction = (power > 0.0) ? TB_CW : TB_CCW;
-    this->i2cDevice->write(this->TB_DIR, direction);
-    this->i2cDevice->write(this->TB_DUTY, pwmDutty);
+    this->_i2cDevice->write(_TB_DIR, direction);
+    this->_i2cDevice->write(_TB_DUTY, pwmDutty);
   }
 }
 
 void DCMotor::stop()
 {
-  this->i2cDevice->write(this->TB_DIR, TB_STOP);  
+  this->_i2cDevice->write(_TB_DIR, TB_STOP);  
 }
 
 

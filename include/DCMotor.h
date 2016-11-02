@@ -9,10 +9,10 @@
 class DCMotor
 {
 protected:
-  I2C* const i2cDevice;
-  uint8_t const TB_MODE;
-  uint8_t const TB_DIR;
-  uint8_t const TB_DUTY;
+  I2C* const _i2cDevice;
+  uint8_t const _TB_MODE;
+  uint8_t const _TB_DIR;
+  uint8_t const _TB_DUTY;
 
 public:
   DCMotor(I2C* i2cDevice, uint8_t TB_MODE, uint8_t TB_DIR, uint8_t TB_DUTY);
