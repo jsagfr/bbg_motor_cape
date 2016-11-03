@@ -19,17 +19,17 @@ void DCMotor::power(float power)
   uint32_t pwmDutty = static_cast<uint32_t>(round(power * 1000.0));
 
   if (pwmDutty == 0) {
-    this->stop();
+    stop();
   } else {
     uint8_t direction = (power > 0.0) ? TB_CW : TB_CCW;
-    this->_i2cDevice->write(_TB_DIR, direction);
-    this->_i2cDevice->write(_TB_DUTY, pwmDutty);
+    _i2cDevice->write(_TB_DIR, direction);
+    _i2cDevice->write(_TB_DUTY, pwmDutty);
   }
 }
 
 void DCMotor::stop()
 {
-  this->_i2cDevice->write(_TB_DIR, TB_STOP);  
+  _i2cDevice->write(_TB_DIR, TB_STOP);  
 }
 
 

@@ -31,4 +31,3 @@ void I2C::write(uint8_t reg, uint32_t data)
        << setfill('0'); // fill with 0s
   cout << "reg: " << hex << setw(2) << static_cast<int>(reg) << " word: " << hex << setw(8) << data << endl;
 }
-

@@ -7,7 +7,7 @@
 class I2C
 {
 private:
-  std::string path;
+  const std::string path;
   
 public:
   I2C(std::string path);

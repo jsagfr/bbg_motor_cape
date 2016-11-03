@@ -65,9 +65,9 @@ void MotorBridgeCape::setChannel2(ChannelType channel2)
     }
 }
 
-void MotorBridgeCape::setDCMotorFrequency(int frequency)
+void MotorBridgeCape::setDCMotorFrequency(unsigned int frequency)
 {
-  cout << frequency << endl;
+  _i2cDevice.write(CONFIG_TB_PWM_FREQ, frequency);
 }
 
 Channel* MotorBridgeCape::getChannel1()

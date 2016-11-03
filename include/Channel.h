@@ -14,23 +14,24 @@ enum ChannelType {
 class Channel
 {
 protected:
-  I2C* i2cDevice;
-  ChannelType type;
+  I2C* _i2cDevice;
+  ChannelType _type;
   
 public:
   Channel(I2C* i2cDevice, ChannelType type);
   Channel();
+  // virtual ~Channel() = default; // TODO(jsagfr)
   
-  ChannelType getType();
+  ChannelType getType() const;
 };
 
 class ChannelDcDc : public Channel
 {
 protected:
-  uint8_t const tbAMode;
-  uint8_t const tbBMode;
-  uint8_t const tbADir;
-  uint8_t const tbBDir;
+  uint8_t const _tbAMode;
+  uint8_t const _tbBMode;
+  uint8_t const _tbADir;
+  uint8_t const _tbBDir;
   DCMotor _motorA;
   DCMotor _motorB;
   

@@ -5,17 +5,17 @@
 
 
 Channel::Channel(I2C* i2cDevice, ChannelType type) :
-  i2cDevice(i2cDevice),
-  type(type)
+  _i2cDevice(i2cDevice),
+  _type(type)
 {}
 
 Channel::Channel() :
   Channel(nullptr, ChannelType::Unused)
 {}
 
-ChannelType Channel::getType()
+ChannelType Channel::getType() const
 {
-  return type;
+  return _type;
 };
 
 ChannelDcDc::ChannelDcDc(I2C* i2cDevice,
@@ -23,14 +23,14 @@ ChannelDcDc::ChannelDcDc(I2C* i2cDevice,
                          uint8_t tbADir, uint8_t tbBDir,
                          DCMotor motorA, DCMotor motorB) :
   Channel(i2cDevice, ChannelType::DcDc),
-  tbAMode(tbAMode), tbBMode(tbBMode),
-  tbADir(tbADir), tbBDir(tbBDir),
+  _tbAMode(tbAMode), _tbBMode(tbBMode),
+  _tbADir(tbADir), _tbBDir(tbBDir),
   _motorA(motorA), _motorB(motorB)
 {
-  this->i2cDevice->write(tbAMode, TB_DCM);
-  this->i2cDevice->write(tbADir, TB_STOP);
-  this->i2cDevice->write(tbBMode, TB_DCM);
-  this->i2cDevice->write(tbBDir, TB_STOP);
+  _i2cDevice->write(_tbAMode, TB_DCM);
+  _i2cDevice->write(_tbADir, TB_STOP);
+  _i2cDevice->write(_tbBMode, TB_DCM);
+  _i2cDevice->write(_tbBDir, TB_STOP);
 }
 
 DCMotor* ChannelDcDc::getMotorA()
