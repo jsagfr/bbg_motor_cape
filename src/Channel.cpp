@@ -1,25 +1,3 @@
-// Channel::Channel();
-
-// Channel::applyConfig();
-
-
-// ChannelDCDC::
-// class : Channel
-// {
-// public:
-//   ChannelDCDC();
-
-//   void applyConfig();
-// };
-
-// class ChannelStepper: Channel
-// {
-// public:
-//   ChannelStepper();
-
-//   void applyConfig();
-// };
-
 #include "Channel.h"
 #include "Constants.h"
 #include "I2C.h"

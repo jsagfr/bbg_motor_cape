@@ -4,7 +4,7 @@
 
 int main (int argc, char *argv[])
 {
-  MotorBridgeCape cape = MotorBridgeCape("/dev/i2c-1");
+  MotorBridgeCape cape("/dev/i2c-1");
   cape.setChannel1(ChannelType::DcDc);
   cape.setChannel2(ChannelType::DcDc);
   DCMotor* motor1A = ((ChannelDcDc*) cape.getChannel1())->getMotorA();
