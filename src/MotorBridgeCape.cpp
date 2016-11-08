@@ -1,12 +1,12 @@
 #include <iostream>
 #include "MotorBridgeCape.h"
 #include "Channel.h"
-#include "I2C.h"
+#include "I2cDevice.h"
 
 
 using namespace std;
 
-MotorBridgeCape::MotorBridgeCape(I2C i2cDevice) :
+MotorBridgeCape::MotorBridgeCape(I2cDevice i2cDevice) :
   _i2cDevice(i2cDevice),
   _channel1(nullptr),
   _channel2(nullptr)
@@ -15,8 +15,8 @@ MotorBridgeCape::MotorBridgeCape(I2C i2cDevice) :
   _channel2 = new Channel();
 }
 
-MotorBridgeCape::MotorBridgeCape(std::string i2cPath) :
-  MotorBridgeCape(I2C(i2cPath))
+MotorBridgeCape::MotorBridgeCape(const std::string& i2cPath) :
+  MotorBridgeCape(I2cDevice(i2cPath, motorBridgeAddr))
 {}
 
 MotorBridgeCape::~MotorBridgeCape()

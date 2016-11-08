@@ -4,7 +4,7 @@
 #include <cmath>
 #include <cstdint>
 
-DCMotor::DCMotor(I2C* i2cDevice, uint8_t TB_MODE, uint8_t TB_DIR, uint8_t TB_DUTY) :
+DCMotor::DCMotor(I2cDevice* i2cDevice, uint8_t TB_MODE, uint8_t TB_DIR, uint8_t TB_DUTY) :
   _i2cDevice(i2cDevice),
   _TB_MODE(TB_MODE),
   _TB_DIR(TB_DIR),
@@ -33,19 +33,19 @@ void DCMotor::stop()
 }
 
 
-DCMotor1A::DCMotor1A(I2C* i2cDevice) :
+DCMotor1A::DCMotor1A(I2cDevice* i2cDevice) :
   DCMotor(i2cDevice, TB_1A_MODE, TB_1A_DIR, TB_1A_DUTY)
 {}
 
-DCMotor2A::DCMotor2A(I2C* i2cDevice) :
+DCMotor2A::DCMotor2A(I2cDevice* i2cDevice) :
   DCMotor(i2cDevice, TB_2A_MODE, TB_2A_DIR, TB_2A_DUTY)
 {}
 
-DCMotor1B::DCMotor1B(I2C* i2cDevice) :
+DCMotor1B::DCMotor1B(I2cDevice* i2cDevice) :
   DCMotor(i2cDevice, TB_1B_MODE, TB_1B_DIR, TB_1B_DUTY)
 {}
 
-DCMotor2B::DCMotor2B(I2C* i2cDevice) :
+DCMotor2B::DCMotor2B(I2cDevice* i2cDevice) :
   DCMotor(i2cDevice, TB_2B_MODE, TB_2B_DIR, TB_2B_DUTY)
 {}
 

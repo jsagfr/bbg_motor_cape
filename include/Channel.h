@@ -3,7 +3,7 @@
 
 #include "Constants.h"
 #include "DCMotor.h"
-#include "I2C.h"
+#include "I2cDevice.h"
 
 enum ChannelType {
   DcDc,
@@ -14,11 +14,11 @@ enum ChannelType {
 class Channel
 {
 protected:
-  I2C* _i2cDevice;
+  I2cDevice* _i2cDevice;
   ChannelType _type;
   
 public:
-  Channel(I2C* i2cDevice, ChannelType type);
+  Channel(I2cDevice* i2cDevice, ChannelType type);
   Channel();
   // virtual ~Channel() = default; // TODO(jsagfr)
   
@@ -36,7 +36,7 @@ protected:
   DCMotor _motorB;
   
 public:
-  ChannelDcDc(I2C* i2cDevice,
+  ChannelDcDc(I2cDevice* i2cDevice,
               uint8_t tbAMode, uint8_t tbBMode,
               uint8_t tbADir, uint8_t tbBDir,
               DCMotor motorA, DCMotor motorB);
@@ -48,13 +48,13 @@ public:
 class ChannelDcDc1: public ChannelDcDc
 {
 public:
-  ChannelDcDc1(I2C* i2cDevice);
+  ChannelDcDc1(I2cDevice* i2cDevice);
 };
 
 class ChannelDcDc2: public ChannelDcDc
 {
 public:
-  ChannelDcDc2(I2C* i2cDevice);
+  ChannelDcDc2(I2cDevice* i2cDevice);
 };
 
 #endif
