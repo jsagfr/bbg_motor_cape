@@ -2,22 +2,22 @@
 #include "MotorBridgeCape.h"
 #include "Channel.h"
 #include "I2cDevice.h"
+#include "Gpio.h"
+#include "BeagleBone.h"
 
 
 using namespace std;
 
-MotorBridgeCape::MotorBridgeCape(I2cDevice i2cDevice) :
-  _i2cDevice(i2cDevice),
+MotorBridgeCape::MotorBridgeCape(const std::string& i2cPath) :
+  _resetPin(P9_23),
+  _i2cDevice(i2cPath, motorBridgeAddr),
   _channel1(nullptr),
   _channel2(nullptr)
 {
   _channel1 = new Channel();
   _channel2 = new Channel();
+  _resetPin.setHigh();
 }
-
-MotorBridgeCape::MotorBridgeCape(const std::string& i2cPath) :
-  MotorBridgeCape(I2cDevice(i2cPath, motorBridgeAddr))
-{}
 
 MotorBridgeCape::~MotorBridgeCape()
 {
@@ -27,6 +27,7 @@ MotorBridgeCape::~MotorBridgeCape()
   if (_channel2) {
     delete[] _channel2;
   }
+  _resetPin.setLow();
 }
 
 
