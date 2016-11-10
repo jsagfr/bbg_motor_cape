@@ -1,5 +1,7 @@
 #include <iostream>
+#include <thread>
 #include "MotorBridgeCape.h"
+#include "Constants.h"
 #include "Channel.h"
 #include "I2cDevice.h"
 #include "Gpio.h"
@@ -27,7 +29,8 @@ MotorBridgeCape::~MotorBridgeCape()
   if (_channel2) {
     delete[] _channel2;
   }
-  _resetPin.setLow();
+  // Seems natural but it does not appears in the ptyhon version:
+  // _resetPin.setLow();
 }
 
 
@@ -66,9 +69,10 @@ void MotorBridgeCape::setChannel2(ChannelType channel2)
     }
 }
 
-void MotorBridgeCape::setDCMotorFrequency(unsigned int frequency)
+void MotorBridgeCape::setDCMotorFrequency(uint16_t frequency)
 {
-  _i2cDevice.write(CONFIG_TB_PWM_FREQ, frequency);
+  _i2cDevice.smbus_write(CONFIG_TB_PWM_FREQ, frequency);
+  std::this_thread::sleep_for(motorCapeDelay);
 }
 
 Channel* MotorBridgeCape::getChannel1()

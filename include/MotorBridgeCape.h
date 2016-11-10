@@ -4,6 +4,7 @@
 #include "Constants.h"
 #include "Channel.h"
 #include "Gpio.h"
+#include <cstdint>
 
 
 /* enum Direction: int {A = 1, B = -1}; */
@@ -27,7 +28,7 @@ protected:
   void setChannel2(ChannelType channel2);
   
   
-  void setDCMotorFrequency(unsigned int frequency);
+  void setDCMotorFrequency(uint16_t frequency);
 
   Channel* getChannel1();
   Channel* getChannel2();
