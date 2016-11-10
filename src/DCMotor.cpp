@@ -1,5 +1,6 @@
 #include "DCMotor.h"
 #include "Constants.h"
+#include <thread>
 #include <iostream>
 #include <cmath>
 #include <cstdint>
@@ -16,20 +17,22 @@ void DCMotor::power(float power)
 {
   power = fmin( 1.0, power);
   power = fmax(-1.0, power);
-  uint32_t pwmDutty = static_cast<uint32_t>(round(power * 1000.0));
+  uint16_t pwmDutty = static_cast<uint16_t>(round(power * 1000.0));
 
   if (pwmDutty == 0) {
     stop();
   } else {
     uint8_t direction = (power > 0.0) ? TB_CW : TB_CCW;
-    _i2cDevice->write(_TB_DIR, direction);
-    _i2cDevice->write(_TB_DUTY, pwmDutty);
+    _i2cDevice->smbus_write(_TB_DIR, direction);
+    std::this_thread::sleep_for(motorCapeDelay);
+    _i2cDevice->smbus_write(_TB_DUTY, pwmDutty);
+    std::this_thread::sleep_for(motorCapeDelay);
   }
 }
 
 void DCMotor::stop()
 {
-  _i2cDevice->write(_TB_DIR, TB_STOP);  
+  _i2cDevice->smbus_write(_TB_DIR, TB_STOP);  
 }
 
 

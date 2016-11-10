@@ -2,6 +2,11 @@
 #define CONSTANTS_H
 
 #include <cstdint>
+#include <chrono>
+
+/* I2C Adresse */
+constexpr std::chrono::milliseconds motorCapeDelay{5};
+
 
 /* I2C Adresse */
 constexpr uint8_t motorBridgeAddr = 0x4b;

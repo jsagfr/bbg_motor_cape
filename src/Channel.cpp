@@ -1,3 +1,4 @@
+#include <thread>
 #include "Channel.h"
 #include "Constants.h"
 #include "I2cDevice.h"
@@ -27,10 +28,14 @@ ChannelDcDc::ChannelDcDc(I2cDevice* i2cDevice,
   _tbADir(tbADir), _tbBDir(tbBDir),
   _motorA(motorA), _motorB(motorB)
 {
-  _i2cDevice->write(_tbAMode, TB_DCM);
-  _i2cDevice->write(_tbADir, TB_STOP);
-  _i2cDevice->write(_tbBMode, TB_DCM);
-  _i2cDevice->write(_tbBDir, TB_STOP);
+  _i2cDevice->smbus_write(_tbAMode, TB_DCM);
+  std::this_thread::sleep_for(motorCapeDelay);
+  _i2cDevice->smbus_write(_tbADir, TB_STOP);
+  std::this_thread::sleep_for(motorCapeDelay);
+  _i2cDevice->smbus_write(_tbBMode, TB_DCM);
+  std::this_thread::sleep_for(motorCapeDelay);
+  _i2cDevice->smbus_write(_tbBDir, TB_STOP);
+  std::this_thread::sleep_for(motorCapeDelay);
 }
 
 DCMotor* ChannelDcDc::getMotorA()
