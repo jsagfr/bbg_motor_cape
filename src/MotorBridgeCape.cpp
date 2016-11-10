@@ -19,6 +19,7 @@ MotorBridgeCape::MotorBridgeCape(const std::string& i2cPath) :
   _channel1 = new Channel();
   _channel2 = new Channel();
   _resetPin.setHigh();
+  std::this_thread::sleep_for(motorCapeDelay);
 }
 
 MotorBridgeCape::~MotorBridgeCape()
