@@ -19,20 +19,24 @@ void DCMotor::power(float power)
   power = fmax(-1.0, power);
   uint16_t pwmDutty = static_cast<uint16_t>(round(power * 1000.0));
 
+  char * buf = reinterpret_cast<char *>(&pwmDutty);
+  uint16_t pwmDutty_r = (buf[0] >> 8) + buf[1];
+
+  
   if (pwmDutty == 0) {
     stop();
   } else {
     uint8_t direction = (power > 0.0) ? TB_CW : TB_CCW;
-    _i2cDevice->smbus_write(_TB_DIR, direction);
+    _i2cDevice->write(_TB_DIR, direction);
     std::this_thread::sleep_for(motorCapeDelay);
-    _i2cDevice->smbus_write(_TB_DUTY, pwmDutty);
+    _i2cDevice->write(_TB_DUTY, pwmDutty_r);
     std::this_thread::sleep_for(motorCapeDelay);
   }
 }
 
 void DCMotor::stop()
 {
-  _i2cDevice->smbus_write(_TB_DIR, TB_STOP);  
+  _i2cDevice->write(_TB_DIR, TB_STOP);  
 }
 
 

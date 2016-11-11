@@ -72,7 +72,9 @@ void MotorBridgeCape::setChannel2(ChannelType channel2)
 
 void MotorBridgeCape::setDCMotorFrequency(uint16_t frequency)
 {
-  _i2cDevice.smbus_write(CONFIG_TB_PWM_FREQ, frequency);
+  char * buf = reinterpret_cast<char *>(&frequency);
+  uint16_t f = (buf[0] >> 8) + buf[1];
+  _i2cDevice.write(CONFIG_TB_PWM_FREQ, f);
   std::this_thread::sleep_for(motorCapeDelay);
 }
 
