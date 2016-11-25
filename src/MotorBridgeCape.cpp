@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <thread>
 #include "MotorBridgeCape.h"
 #include "Constants.h"
@@ -16,10 +17,10 @@ MotorBridgeCape::MotorBridgeCape(const std::string& i2cPath) :
   _channel1(nullptr),
   _channel2(nullptr)
 {
+  _resetPin.setHigh();
+  std::this_thread::sleep_for(pinCapeDelay);
   _channel1 = new Channel();
   _channel2 = new Channel();
-  _resetPin.setHigh();
-  std::this_thread::sleep_for(motorCapeDelay);
 }
 
 MotorBridgeCape::~MotorBridgeCape()
@@ -70,12 +71,14 @@ void MotorBridgeCape::setChannel2(ChannelType channel2)
     }
 }
 
-void MotorBridgeCape::setDCMotorFrequency(uint16_t frequency)
+void MotorBridgeCape::setDCMotorFrequency(uint32_t frequency)
 {
-  char * buf = reinterpret_cast<char *>(&frequency);
-  uint16_t f = (buf[0] >> 8) + buf[1];
-  _i2cDevice.write(CONFIG_TB_PWM_FREQ, f);
-  std::this_thread::sleep_for(motorCapeDelay);
+  std::cout << "frequency as hex: " << std::hex << frequency << std::endl;
+  uint8_t * src_f = reinterpret_cast<unsigned char *>(&frequency);
+  
+  uint8_t data[] = {WRITE_MODE, CONFIG_TB_PWM_FREQ,
+		    src_f[0], src_f[1], src_f[2], src_f[3]};
+  _i2cDevice.write(data, 6);
 }
 
 Channel* MotorBridgeCape::getChannel1()

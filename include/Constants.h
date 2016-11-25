@@ -4,9 +4,15 @@
 #include <cstdint>
 #include <chrono>
 
-/* I2C Adresse */
-constexpr std::chrono::milliseconds motorCapeDelay{5};
+/*  */
+constexpr std::chrono::milliseconds motorCapeDelay{6};
+constexpr std::chrono::seconds pinCapeDelay{1};
 
+
+/*  */
+constexpr uint8_t READ_MODE  = 0;
+constexpr uint8_t WRITE_MODE = 1;
+/* constexpr uint32_t CONFIG_VALID = 0x3a6fb67c; */
 
 /* I2C Adresse */
 constexpr uint8_t motorBridgeAddr = 0x4b;

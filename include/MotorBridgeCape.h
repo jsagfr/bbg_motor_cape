@@ -28,7 +28,7 @@ protected:
   void setChannel2(ChannelType channel2);
   
   
-  void setDCMotorFrequency(uint16_t frequency);
+  void setDCMotorFrequency(uint32_t frequency);
 
   Channel* getChannel1();
   Channel* getChannel2();
