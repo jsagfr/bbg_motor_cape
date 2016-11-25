@@ -66,6 +66,6 @@ ChannelDcDc2::ChannelDcDc2(I2cDevice* i2cDevice) :
   ChannelDcDc(i2cDevice,
               TB_2A_MODE, TB_2B_MODE,
               TB_2A_DIR, TB_2B_DIR,
-              DCMotor2A(i2cDevice), DCMotor2A(i2cDevice))
+              DCMotor2A(i2cDevice), DCMotor2B(i2cDevice))
 {}
 
