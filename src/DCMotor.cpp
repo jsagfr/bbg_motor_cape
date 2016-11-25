@@ -17,7 +17,7 @@ void DCMotor::power(float power)
 {
   power = fmin( 1.0, power);
   power = fmax(-1.0, power);
-  uint32_t pwmDutty = static_cast<uint32_t>(round(power * 1000.0));
+  int32_t pwmDutty = static_cast<int32_t>(round(power * 1000.0));
   char * src_p = reinterpret_cast<char *>(&pwmDutty);
   
   if (pwmDutty == 0) {
