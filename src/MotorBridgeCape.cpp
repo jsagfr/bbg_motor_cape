@@ -31,7 +31,7 @@ MotorBridgeCape::~MotorBridgeCape()
   if (_channel2) {
     delete[] _channel2;
   }
-  // Seems natural but it does not appears in the ptyhon version:
+  // Seems natural but it does not appears in the python version:
   // _resetPin.setLow();
 }
 
@@ -74,11 +74,10 @@ void MotorBridgeCape::setChannel2(ChannelType channel2)
 void MotorBridgeCape::setDCMotorFrequency(uint32_t frequency)
 {
   std::cout << "frequency as hex: " << std::hex << frequency << std::endl;
-  uint8_t * src_f = reinterpret_cast<unsigned char *>(&frequency);
+  uint8_t * src_f = reinterpret_cast<uint8_t *>(&frequency);
   
-  uint8_t data[] = {WRITE_MODE, CONFIG_TB_PWM_FREQ,
-		    src_f[0], src_f[1], src_f[2], src_f[3]};
-  _i2cDevice.write(data, 6);
+  _i2cDevice.write({WRITE_MODE, CONFIG_TB_PWM_FREQ,
+        src_f[0], src_f[1], src_f[2], src_f[3]});
 }
 
 Channel* MotorBridgeCape::getChannel1()

@@ -28,20 +28,16 @@ ChannelDcDc::ChannelDcDc(I2cDevice* i2cDevice,
   _tbADir(tbADir), _tbBDir(tbBDir),
   _motorA(motorA), _motorB(motorB)
 {
-  uint8_t d[] = {WRITE_MODE, _tbAMode, TB_DCM};
-  _i2cDevice->write(d, 3);
+  _i2cDevice->write({WRITE_MODE, _tbAMode, TB_DCM});
   std::this_thread::sleep_for(motorCapeDelay);
   
-  d[1] = _tbADir; d[2] = TB_STOP;
-  _i2cDevice->write(d, 3);
+  _i2cDevice->write({WRITE_MODE, _tbADir, TB_STOP});
   std::this_thread::sleep_for(motorCapeDelay);
 
-  d[1] = _tbBMode; d[2] = TB_DCM;
-  _i2cDevice->write(d, 3);
+  _i2cDevice->write({WRITE_MODE, _tbBMode, TB_DCM});
   std::this_thread::sleep_for(motorCapeDelay);
 
-  d[1] = _tbBDir; d[2] = TB_STOP;
-  _i2cDevice->write(d, 3);
+  _i2cDevice->write({WRITE_MODE, _tbBDir, TB_STOP});
   std::this_thread::sleep_for(motorCapeDelay);
 }
 
