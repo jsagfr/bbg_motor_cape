@@ -3,6 +3,7 @@ project (motor_cape)
 
 add_compile_options(-Wall)
 add_compile_options(-Wextra)
+add_compile_options(-std=gnu++11)
 add_library(motor_cape src/Channel.cpp src/DCMotor.cpp src/MotorBridgeCape.cpp)
 set_property(TARGET motor_cape PROPERTY CXX_STANDARD 11)
 set_property(TARGET motor_cape PROPERTY CXX_STANDARD_REQUIRED ON)
